@@ -1,4 +1,3 @@
-[gemini-code-1782788431132.md](https://github.com/user-attachments/files/29488572/gemini-code-1782788431132.md)
 # Métodos Numéricos: Diferenciação e Integração Numérica
 
 Este repositório reúne implementações em Python para a resolução numérica de dois problemas fundamentais do cálculo diferencial e integral: a aproximação de derivadas por diferenças finitas e o cálculo de integrais definidas por métodos de quadratura (Trapézio e Simpson).
