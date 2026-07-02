@@ -59,4 +59,4 @@ Os scripts utilizam a biblioteca `numpy` para a vetorização e criação das ma
 ```bash
 pip install numpy matplotlib
 
-Parâmetros de Teste e ResultadosOs scripts vêm configurados por padrão com os seguintes parâmetros acadêmicos para validação dos métodos:Diferenciação ($f(x) = \sin(x)$ em $x_0 = 1.0, h = 0.1$): Demonstra na prática como o erro da Diferença Central é significativamente menor se comparado aos métodos Progressivo e Regressivo.Integração ($f(x) = x^2$ em $[0, 1]$ com $n = 10$): Mostra a eficiência da Regra de Simpson, que consegue obter o resultado exato de $1/3$ para polinômios de até terceiro grau.
+Parâmetros de Teste e Resultados scripts vêm configurados por padrão com os seguintes parâmetros para validação dos métodos:Diferenciação ($f(x) = \sin(x)$ em $x_0 = 1.0, h = 0.1$): Demonstra na prática como o erro da Diferença Central é significativamente menor se comparado aos métodos Progressivo e Regressivo.Integração ($f(x) = x^2$ em $[0, 1]$ com $n = 10$): Mostra a eficiência da Regra de Simpson, que consegue obter o resultado exato de $1/3$ para polinômios de até terceiro grau.
