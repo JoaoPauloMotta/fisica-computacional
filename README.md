@@ -1,62 +1,123 @@
-# Métodos Numéricos: Diferenciação e Integração Numérica
+# Métodos Numéricos em Física Computacional
 
-Este repositório reúne implementações em Python para a resolução numérica de dois problemas fundamentais do cálculo diferencial e integral: a aproximação de derivadas por diferenças finitas e o cálculo de integrais definidas por métodos de quadratura (Trapézio e Simpson).
+Projeto didático em Python com implementações de métodos numéricos para
+diferenciação e integração de funções.
 
-O objetivo deste projeto é ilustrar de forma clara e didática como conceitos matemáticos contínuos são discretizados e resolvidos computacionalmente.
+O repositório demonstra como derivadas e integrais, definidas continuamente,
+podem ser aproximadas computacionalmente por meio de discretização.
 
----
+## Objetivos
 
-## Estrutura dos Códigos
+- Implementar aproximações de derivadas por diferenças finitas.
+- Comparar os métodos progressivo, regressivo e central.
+- Implementar as regras compostas do Trapézio e de Simpson.
+- Comparar resultados numéricos com soluções analíticas conhecidas.
+- Estudar a influência do método escolhido sobre o erro numérico.
 
-O repositório está dividido em dois scripts principais baseados na biblioteca `numpy`:
+## Destaques técnicos
 
-1. **Diferenciação Numérica (`diferenciacao.py`):** Compara três aproximações de diferenças finitas para a derivada de uma função analítica contra o seu resultado exato.
-2. **Integração Numérica (`integracao.py`):** Implementa as regras compostas do Trapézio e de Simpson para o cálculo de áreas sob curvas.
+- Operações vetorizadas com NumPy.
+- Comparação direta entre solução numérica e solução exata.
+- Diferença central com erro de ordem \(O(h^2)\).
+- Regra de Simpson com erro global de ordem \(O(h^4)\).
+- Validação do número de subintervalos exigido pelo método de Simpson.
 
----
+## Métodos implementados
 
-## 1. Diferenciação Numérica (Diferenças Finitas)
+### Diferenciação numérica
 
-O primeiro script foca em estimar a taxa de variação instantânea de uma função $f(x)$ em um ponto específico $x_0$, utilizando um espaçamento infinitesimal aproximado $h$. 
+Para \(f(x)=\sin(x)\), cuja derivada exata é \(f'(x)=\cos(x)\), são
+comparadas três aproximações:
 
-A função testada é $f(x) = \sin(x)$, cuja derivada analítica exata é $f'(x) = \cos(x)$.
+- Diferença progressiva:
 
-### Métodos Implementados:
+\[
+f'(x) \approx \frac{f(x+h)-f(x)}{h}
+\]
 
-* **Diferença Progressiva (Forward Difference):** Utiliza o ponto subsequente para aproximar a inclinação. Possui erro de ordem linear $O(h)$.
-  $$f'(x_0) \approx \frac{f(x_0 + h) - f(x_0)}{h}$$
+- Diferença regressiva:
 
-* **Diferença Regressiva (Backward Difference):** Utiliza o ponto anterior para aproximar a inclinação. Também possui erro de ordem linear $O(h)$.
-  $$f'(x_0) \approx \frac{f(x_0) - f(x_0 - h)}{h}$$
+\[
+f'(x) \approx \frac{f(x)-f(x-h)}{h}
+\]
 
-* **Diferença Central (Central Difference):** Utiliza a média simétrica dos pontos vizinhos. Por cancelar os termos de primeira ordem na Série de Taylor, sua precisão é muito maior, com erro de ordem quadrática $O(h^2)$.
-  $$f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}$$
+- Diferença central:
 
----
+\[
+f'(x) \approx \frac{f(x+h)-f(x-h)}{2h}
+\]
 
-## 2. Integração Numérica (Quadratura)
+### Integração numérica
 
-O segundo script foca em aproximar a integral definida:
-$$\int_{a}^{b} f(x) \, dx$$
+Para aproximar uma integral definida, o projeto implementa:
 
-Para a função testada $f(x) = x^2$ no intervalo $[0, 1]$, dividida em $n = 10$ subintervalos.
+- Regra composta do Trapézio.
+- Regra composta de Simpson 1/3.
 
-### Métodos Implementados:
+A função usada no exemplo é \(f(x)=x^2\), integrada no intervalo \([0,1]\).
 
-* **Regra Composta do Trapézio:** Aproxima a área sob a curva dividindo o intervalo em $n$ trapézios lineares. O somatório pondera as extremidades com peso 1 e os pontos internos com peso 2.
-  $$\text{Resultado} = \frac{h}{2} \left[ f(x_0) + 2\sum_{i=1}^{n-1} f(x_i) + f(x_n) \right]$$
+## Resultado de referência
 
-* **Regra Composta de Simpson (1/3):** Aproxima a curva utilizando arcos de parábolas (polinômios de segundo grau) em vez de retas. Exige estritamente um número **par** de subintervalos ($n$), alternando os pesos dos pontos internos entre 4 e 2 para atingir uma precisão superior de ordem $O(h^4)$.
-  $$\text{Resultado} = \frac{h}{3} \left[ f(x_0) + 4\sum_{\text{ímpares}} f(x_i) + 2\sum_{\text{pares}} f(x_j) + f(x_n) \right]$$
+Com os parâmetros presentes nos scripts:
 
----
+| Método | Resultado | Erro absoluto |
+|---|---:|---:|
+| Derivada exata | 0,540302 | — |
+| Diferença progressiva | 0,497364 | 0,042939 |
+| Diferença regressiva | 0,581441 | 0,041138 |
+| Diferença central | 0,539402 | 0,000900 |
+| Trapézio | 0,335000 | 0,001667 |
+| Simpson | 0,333333 | aproximadamente zero |
 
-## Requisitos e Execução
+Os resultados mostram a maior precisão da diferença central e da regra de
+Simpson para esses exemplos.
 
-Os scripts utilizam a biblioteca `numpy` para a vetorização e criação das malhas de pontos (`np.linspace`).
+## Estrutura
 
-### Instalação das dependências:
+| Caminho | Responsabilidade |
+|---|---|
+| `diferenciacao-numerica/derivadas.py` | Aproximação e comparação de derivadas |
+| `integracao-numerica/integracao.py` | Regras do Trapézio e de Simpson |
+| `README.md` | Documentação do projeto |
+
+## Como executar
+
+Requer Python 3.9 ou superior.
+
+Depois de clonar ou baixar o repositório:
+
 ```bash
-pip install numpy matplotlib
+cd fisica-computacional
+python -m venv .venv
+```
 
-Parâmetros de Teste e Resultados scripts vêm configurados por padrão com os seguintes parâmetros para validação dos métodos:Diferenciação ($f(x) = \sin(x)$ em $x_0 = 1.0, h = 0.1$): Demonstra na prática como o erro da Diferença Central é significativamente menor se comparado aos métodos Progressivo e Regressivo.Integração ($f(x) = x^2$ em $[0, 1]$ com $n = 10$): Mostra a eficiência da Regra de Simpson, que consegue obter o resultado exato de $1/3$ para polinômios de até terceiro grau.
+No Windows:
+
+```powershell
+.venv\Scripts\activate
+pip install numpy matplotlib
+python diferenciacao-numerica/derivadas.py
+python integracao-numerica/integracao.py
+```
+
+No Linux ou macOS:
+
+```bash
+source .venv/bin/activate
+pip install numpy matplotlib
+python diferenciacao-numerica/derivadas.py
+python integracao-numerica/integracao.py
+```
+
+## Limitações e próximos passos
+
+- Os parâmetros dos experimentos ainda estão definidos diretamente nos scripts.
+- O projeto não possui testes automatizados.
+- A diferenciação importa Matplotlib, mas ainda não gera gráficos.
+- Próximas evoluções podem incluir análise do erro em função de \(h\), gráficos
+  de convergência e novos métodos de quadratura.
+
+## Autor
+
+**João Paulo Benati Motta** — estudante de Engenharia Física na UFRGS, com
+interesse em computação científica, métodos numéricos e modelagem física.
